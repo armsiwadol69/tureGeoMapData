@@ -8,7 +8,7 @@ PHP & SQL.
 Data Visualization : GeoChart By Google.
 
 
-การส่งและอ่านข้อมูล
+การส่งและอ่านข้อมูล (MapController.php)
 //['จังหวัด', 'สถาณะ'] (0 = ปกติ, 1 = NSA, 2 = SA)
 ['Provinces', 'Status'],
 ['buogkan',0],
