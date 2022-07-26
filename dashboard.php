@@ -23,7 +23,10 @@ include 'MapController.php'; //SQL arrayToDataTable
       function drawRegionsMap() {
         var data = google.visualization.arrayToDataTable([
           ['Provinces', 'Status'],
-          <?php echo $data2map; ?>
+          <?php echo $data2map; 
+          //send data to gv.
+          
+          ?>
         ]);
 
         var options = {
@@ -87,8 +90,9 @@ include 'MapController.php'; //SQL arrayToDataTable
     }
       if ($result == "fail") {
         echo '
-        <div class="alert alert-danger w-100 shadow-sm alert-dismissible fade show" role="alert">
-        เกิดข้อผิดพลาด
+        <div class="alert alert-success alert-dismissible fade show" role="alert" id="success-alert">
+        <strong>Error!</strong> Somethnig went worng.'.'
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         ';
       }elseif ($result == "done") {
@@ -117,11 +121,8 @@ include 'MapController.php'; //SQL arrayToDataTable
     <div class="col-lg-12 mb-12">
       <div class="card shadow-sm w-100">
     <div class="card-body monitor_div" id="monitor_div" class="map">
-    
-
- 
- 
     </div>
+    <div class="card-footer">Green = Normal | Yellow = NSA | Red = SA</div>
   </div>
     </div>
 
@@ -270,9 +271,9 @@ include 'MapController.php'; //SQL arrayToDataTable
       <label for="duration" class="form-label">Status<span class="text-danger">*</span></label>
       <select name="status" id="status" class="form-control form-select" required="true">
       <option value="" selected>เลือก...</option>
-      <option value="0">Normal</option>
-      <option value="1">NSA</option>
-      <option value="2">SA</option>
+      <option value="0" disabled>Normal : ปกติ</option>
+      <option value="1">NSA : ผิดปกติ แต่ไม่ส่งผลกระทบกับ Service</option>
+      <option value="2">SA : ผิดปกติ และส่งผลกระทบกับ Service</option>
       </select>
       </div>
       <label for="Name" class="form-label">Detail<span class="text-danger">*</label>

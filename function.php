@@ -8,11 +8,11 @@ function checkStatus($status){
   }
   elseif ($status == "1")
   {
-   $returnStatus = "NSA";
+   $returnStatus = '<span class="badge bg-warning">NSA</span>';
   }
   elseif ($status == "2")
   {
-   $returnStatus = "SA";
+    $returnStatus = '<span class="badge bg-danger">SA</span>';
   }else{$returnStatus = "";}
 
   return $returnStatus;
