@@ -233,7 +233,7 @@ include 'MapController.php'; //SQL arrayToDataTable
   </div>
     </div>
 
-    <div class="col-lg-12 mb-3">
+    <div class="col-lg-12 mb-2">
       <div class="card shadow-sm w-100">
       <div class="card-header">Open New Ticket</div>
     <div class="card-body">
@@ -261,7 +261,7 @@ include 'MapController.php'; //SQL arrayToDataTable
       </div>
       <div class="mb-3">
       <label for="tag" class="form-label">Time<span class="text-danger">*</span></label>
-      <input type="time" class="form-control" id="time" name="time" aria-describedby="tagHelp" autocomplete="new-tag" required>
+      <input type="time" class="form-control" id="time" name="time" step="1" aria-describedby="tagHelp" autocomplete="new-tag" required>
       </div>
       <div class="mb-3">
       <label for="duration" class="form-label">Duration<span class="text-danger">*</span></label>
@@ -286,7 +286,15 @@ include 'MapController.php'; //SQL arrayToDataTable
     </div>
     </div>
     </div>
-  
+
+
+    <div class="col-lg-12 mb-2">
+      <div class="card shadow-sm w-100">
+    <div class="card-body text-center">
+    <a href="https://github.com/armsiwadol69/tureGeoMapData" target="_blank"><h3>Source Code@Github Repository</h3></a>
+    </div>
+  </div>
+    </div>
 
 
 
