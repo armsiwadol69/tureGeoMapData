@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300&display=swap');
+
+body{
+    font-family: 'Prompt', sans-serif;
+
+    background: linear-gradient(-150deg, #bc4e9c, #f80759, #FC5C7D, #6A82FB);
+	background-size: 400% 400%;
+	animation: gradient 5s ease infinite;
+}
+
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.btn_newWish {
+	background: rgb(63,124,251);
+	background: linear-gradient(90deg, rgba(63,124,251,1) 0%, rgba(252,70,77,1) 100%);
+	background-size: 400% 400%;
+	-webkit-animation: xmas_btn_ani 8s ease infinite;
+	-o-animation: xmas_btn_ani 8s ease infinite;
+	animation: xmas_btn_ani 8s ease infinite;
+  
+  }
+  .btn_newWish:hover{
+	background: rgb(63,196,251);
+	background: linear-gradient(90deg, rgba(63,196,251,1) 0%, rgba(252,70,220,1) 100%);
+	background-size: 400% 400%;
+	-webkit-animation: xmas_btn_ani 4s ease infinite;
+	-o-animation: xmas_btn_ani 4s ease infinite;
+	animation: xmas_btn_ani 4s ease infinite;
+  
+  }
+.monitor_div{
+	width: 100%; 
+}
+
+table {
+    table-layout: auto;
+    border-collapse: collapse;
+    width: 100%;
+}
+table td {
+    border: 1px solid #ccc;
+}
+.fix-textFUll-column {
+    white-space: nowrap;
+     overflow: hidden;
+}
+
+/* Fix tooltip flickering */
+  svg > g:last-child > g:last-child { pointer-events: none }
+  div.google-visualization-tooltip { pointer-events: none } 
