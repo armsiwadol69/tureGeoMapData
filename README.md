@@ -20,3 +20,7 @@ Data Visualization : GeoChart By Google.
 และเมื่อมีการเปิด Ticket จะอ่านค่าใหม่สุด
 
 ทดลองได้ที่ http://siwadol69.yongsue.com/mapGeoData/
+
+
+#BUG2FIX
+ [BUG] Bueng Kan can't be used, must use "TH-38" instead.
