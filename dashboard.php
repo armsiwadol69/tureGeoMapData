@@ -30,13 +30,14 @@ include 'MapController.php'; //SQL arrayToDataTable
         ]);
 
         var options = {
+            
+            regioncoderVersionz: 1,
             region: 'TH',
             resolution: 'provinces',
             //displayMode: 'markers',
             colorAxis: {minValue: 0, maxValue: 2,colors: ['#00FF48', '#F5C800', '#FA0135']},
             backgroundColor: '#00b3ff',
             datalessRegionColor: '#cfd7ff',
-           
             keepAspectRatio: true,
             legend : 'none',
             tooltip: {isHtml: true}
@@ -291,7 +292,7 @@ include 'MapController.php'; //SQL arrayToDataTable
     <div class="col-lg-12 mb-2">
       <div class="card shadow-sm w-100">
     <div class="card-body text-center">
-    <a href="https://github.com/armsiwadol69/tureGeoMapData" target="_blank"><h3>Source Code@Github Repository</h3></a>
+    <a href="https://github.com/armsiwadol69/tureGeoMapData" target="_blank"><h3>Source Code@Github Repository</h3></a> <br> <p class="text-danger">Bueng Kan province can't be use with Google charts use "TH-38" instead</p>
     </div>
   </div>
     </div>
