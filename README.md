@@ -10,7 +10,7 @@ Data Visualization : GeoChart By Google.
 
 การส่งและอ่านข้อมูล (MapController.php)
 //['จังหวัด', 'สถาณะ'] (0 = ปกติ, 1 = NSA, 2 = SA)
-['Provinces', 'Status'],
+['Provinces', 'Status'], <br>
 ['buogkan',0],
 
 ข้อมูลที่ใหม่กว่าจะถูกใช้
