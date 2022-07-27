@@ -8,7 +8,7 @@ foreach($result_all_pr as $data){
 $data2map .= "['".$data['name_en']."',".'0'."],";
 }
 
-//rewir
+//sent all ticket that open
 $sql_all_tg = "SELECT * FROM trueCATV ORDER BY date desc";
 $query_tg = mysqli_query($conn,$sql_all_tg) or die("error");
 $result_all_tg = mysqli_query($conn, $sql_all_tg);
