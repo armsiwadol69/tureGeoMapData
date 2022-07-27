@@ -1,6 +1,6 @@
 <?php
-include 'conn.php';  //Database Info
-$conn = mysqli_connect($serverName,$userName,$userPassword,$dbName);
+include 'conn.php'; //Database Info
+$conn = mysqli_connect($serverName, $userName, $userPassword, $dbName);
 include 'function.php'; //Status Converter
 include 'MapController.php'; //SQL arrayToDataTable
 
@@ -23,14 +23,14 @@ include 'MapController.php'; //SQL arrayToDataTable
       function drawRegionsMap() {
         var data = google.visualization.arrayToDataTable([
           ['Provinces', 'Status'],
-          <?php echo $data2map; 
-          //send data to gv.
-          
-          ?>
+          <?php echo $data2map;
+//send data to gv.
+
+?>
         ]);
 
         var options = {
-            
+
             regioncoderVersionz: 1,
             region: 'TH',
             resolution: 'provinces',
@@ -42,7 +42,7 @@ include 'MapController.php'; //SQL arrayToDataTable
             legend : 'none',
             tooltip: {isHtml: true}
 
-            
+
         };
 
         var chart = new google.visualization.GeoChart(document.getElementById('monitor_div'));
@@ -66,7 +66,7 @@ include 'MapController.php'; //SQL arrayToDataTable
        <a class="nav-link active" aria-current="page" href="dashboard.php">GeoDataMap</a>
      </li>
      <li class="nav-item disabled">
-       <a class="nav-link disabled" aria-current="page" href="">Version : <?php echo $c_version;?></a>
+       <a class="nav-link disabled" aria-current="page" href="">Version : <?php echo $c_version; ?></a>
      </li>
    </ul>
  </div>
@@ -84,40 +84,39 @@ include 'MapController.php'; //SQL arrayToDataTable
 
       <div class="col-lg-12">
       <?php
-      if (isset($_GET["result"]) == 1) {
-      $result = $_GET["result"];
-    }else {
-      $result = NULL;
-    }
-      if ($result == "fail") {
-        echo '
+if (isset($_GET["result"]) == 1) {
+    $result = $_GET["result"];
+} else {
+    $result = null;
+}
+if ($result == "fail") {
+    echo '
         <div class="alert alert-success alert-dismissible fade show" role="alert" id="success-alert">
-        <strong>Error!</strong> Somethnig went worng.'.'
+        <strong>Error!</strong> Somethnig went worng.' . '
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         ';
-      }elseif ($result == "done") {
-        echo '
+} elseif ($result == "done") {
+    echo '
         <div class="alert alert-success alert-dismissible fade show" role="alert" id="success-alert">
-        <strong>Success!</strong> New Ticket have been created. | ID:'.$_GET["newid"].'
+        <strong>Success!</strong> New Ticket have been created. | ID:' . $_GET["newid"] . '
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         ';
-      }
-      elseif ($result == "unknown") {
-        echo '
+} elseif ($result == "unknown") {
+    echo '
         <div class="alert alert-warning w-100 shadow-sm alert-dismissible fade show" role="alert">
         ออกจากระบบอัตโนมัติเนื่องจากไม่มีการเคลื่อนไหวนานกว่า 15 นาที
         </div>
         ';
-      }
-      ?>
+}
+?>
     </div>
      </div>
     <?php
-    
-    ?>
-    
+
+?>
+
     <div class="row d-grid gap-3">
     <div class="col-lg-12 mb-12">
       <div class="card shadow-sm w-100">
@@ -135,7 +134,7 @@ include 'MapController.php'; //SQL arrayToDataTable
       <table class="table text-dark table-hover table-striped mx-auto w-100 text-center align-middle">
                    <tr>
                    <td>Site</td>
-                   <td>Ticket no.</td>
+                   <td>Ticket No.</td>
                    <td>Province</td>
                    <td class="fix-textFUll-column">Date</td>
                    <td>Time</td>
@@ -144,38 +143,38 @@ include 'MapController.php'; //SQL arrayToDataTable
                    <td>Status</td>
                  </tr>
                  <?php
-                   $result = $conn->query("SELECT TicketNo FROM trueCATV ORDER BY TicketNo");
-                   $row_cnt = $result->num_rows;
+$result = $conn->query("SELECT TicketNo FROM trueCATV ORDER BY TicketNo");
+$row_cnt = $result->num_rows;
 
-                   //echo $row_cnt;
+//echo $row_cnt;
 
+if (isset($_GET["page"]) and !empty($_GET["page"])) {
+    $page_default = intval($_GET["page"]);
+} else {
+    $page_default = 1;
+}
 
-                  if (isset($_GET["page"]) AND !empty($_GET["page"])) {
-                    $page_default = intval($_GET["page"]);
-                  }else {
-                    $page_default = 1;
-                  }
-            
-                 $no_of_records_per_page = 8;
-                 $offset = ($page_default-1) * $no_of_records_per_page;
-                 $total_pages = ceil($row_cnt / $no_of_records_per_page);
-                 
-                 $sql_all = "SELECT * FROM trueCATV ORDER BY time DESC, date LIMIT $offset, $no_of_records_per_page";
-                 $query = mysqli_query($conn,$sql_all) or die("error");
-                 $result_all = mysqli_query($conn, $sql_all);
-                       while($row_gen = mysqli_fetch_array($result_all)) {
-                       echo '<tr>';
-                       echo '<td>'.$row_gen["site"]."</td>";
-                       echo '<td>'.$row_gen["TicketNo"]."</td>";
-                       echo '<td>'.$row_gen["province"]."</td>";
-                       echo '<td class="fix-textFUll-column">'.$row_gen["date"]."</td>";
-                       echo '<td>'.$row_gen["time"]."</td>";
-                       echo '<td>'.$row_gen["duration"]."</td>";
-                       echo '<td>'.$row_gen["detail"]."</td>";
-                       echo '<td>'.checkStatus($row_gen["status"])."</td>";               
-                       echo "</tr>"."\n";
-                       };
-                       ?>
+$no_of_records_per_page = 8;
+$offset = ($page_default - 1) * $no_of_records_per_page;
+$total_pages = ceil($row_cnt / $no_of_records_per_page);
+
+$sql_all = "SELECT * FROM trueCATV ORDER BY time DESC, date LIMIT $offset, $no_of_records_per_page";
+$query = mysqli_query($conn, $sql_all) or die("error");
+$result_all = mysqli_query($conn, $sql_all);
+while ($row_gen = mysqli_fetch_array($result_all)) {
+    echo '<tr>';
+    echo '<td>' . $row_gen["site"] . "</td>";
+    echo '<td>' . $row_gen["TicketNo"] . "</td>";
+    echo '<td>' . $row_gen["province"] . "</td>";
+    echo '<td class="fix-textFUll-column">' . $row_gen["date"] . "</td>";
+    echo '<td>' . $row_gen["time"] . "</td>";
+    echo '<td>' . $row_gen["duration"] . "</td>";
+    echo '<td>' . $row_gen["detail"] . "</td>";
+    echo '<td>' . checkStatus($row_gen["status"]) . "</td>";
+    echo "</tr>" . "\n";
+}
+;
+?>
       </table>
       </div>
       <div class="mt-3 w-100">
@@ -185,48 +184,48 @@ include 'MapController.php'; //SQL arrayToDataTable
          <a class="btn btn-dark" href="?page=1#kokodayo">หน้าแรก</a>
 
 
-         <a class="btn btn-dark <?php if($page_default <= 1){ echo 'disabled'; } ?>"
-             href="<?php if($page_default <= 1){ echo ''; } else { echo "?page=".($page_default - 1); } ?>#kokodayo">หน้าที่แล้ว</a>
+         <a class="btn btn-dark <?php if ($page_default <= 1) {echo 'disabled';}?>"
+             href="<?php if ($page_default <= 1) {echo '';} else {echo "?page=" . ($page_default - 1);}?>#kokodayo">หน้าที่แล้ว</a>
          </a>
          <?php if ($page_default - 3 > 0) {
-           $numtoback = $page_default - 3;
-           echo '<a class="btn btn-dark" href="?page='.$numtoback.'#kokodayo">';
-           echo $page_default - 3;
-           echo "</a>";}
-           if ($page_default - 2 > 0) {
-             $numtoback = $page_default - 2;
-             echo '<a class="btn btn-dark" href="?page='.$numtoback.'#kokodayo">';
-             echo $page_default - 2;
-             echo "</a>";}
-             if ($page_default - 1 > 0) {
-               $numtoback = $page_default - 1;
-               echo '<a class="btn btn-dark" href="?page='.$numtoback.'#kokodayo">';
-               echo $page_default - 1;
-               echo "</a>";}
-          ?>
-         <button class="btn btn-dark mx-2"><?php  echo "$page_default";?></button>
+    $numtoback = $page_default - 3;
+    echo '<a class="btn btn-dark" href="?page=' . $numtoback . '#kokodayo">';
+    echo $page_default - 3;
+    echo "</a>";}
+if ($page_default - 2 > 0) {
+    $numtoback = $page_default - 2;
+    echo '<a class="btn btn-dark" href="?page=' . $numtoback . '#kokodayo">';
+    echo $page_default - 2;
+    echo "</a>";}
+if ($page_default - 1 > 0) {
+    $numtoback = $page_default - 1;
+    echo '<a class="btn btn-dark" href="?page=' . $numtoback . '#kokodayo">';
+    echo $page_default - 1;
+    echo "</a>";}
+?>
+         <button class="btn btn-dark mx-2"><?php echo "$page_default"; ?></button>
 
          <?php if ($page_default + 1 <= $total_pages) {
-           $numtoback = $page_default + 1;
-           echo '<a class="btn btn-dark" href="?page='.$numtoback.'#kokodayo">';
-           echo $page_default + 1;
-           echo "</a>";}
-           if ($page_default + 2 <= $total_pages) {
-             $numtoback = $page_default + 2;
-             echo '<a class="btn btn-dark" href="?page='.$numtoback.'#kokodayo">';
-             echo $page_default + 2;
-             echo "</a>";}
-             if ($page_default + 3 <= $total_pages) {
-               $numtoback = $page_default + 3;
-               echo '<a class="btn btn-dark" href="?page='.$numtoback.'#kokodayo">';
-               echo $page_default + 3;
-               echo "</a>";}
-          ?>
+    $numtoback = $page_default + 1;
+    echo '<a class="btn btn-dark" href="?page=' . $numtoback . '#kokodayo">';
+    echo $page_default + 1;
+    echo "</a>";}
+if ($page_default + 2 <= $total_pages) {
+    $numtoback = $page_default + 2;
+    echo '<a class="btn btn-dark" href="?page=' . $numtoback . '#kokodayo">';
+    echo $page_default + 2;
+    echo "</a>";}
+if ($page_default + 3 <= $total_pages) {
+    $numtoback = $page_default + 3;
+    echo '<a class="btn btn-dark" href="?page=' . $numtoback . '#kokodayo">';
+    echo $page_default + 3;
+    echo "</a>";}
+?>
 
-         <a class="btn btn-dark <?php if($page_default >= $total_pages){ echo 'disabled'; } ?>"
-              href="<?php if($page_default >= $total_pages){ echo '#'; } else { echo "?page=".($page_default + 1); } ?>#kokodayo">หน้าถัดไป
+         <a class="btn btn-dark <?php if ($page_default >= $total_pages) {echo 'disabled';}?>"
+              href="<?php if ($page_default >= $total_pages) {echo '#';} else {echo "?page=" . ($page_default + 1);}?>#kokodayo">หน้าถัดไป
          </a>
-         <a class="btn btn-dark <?php if ($page_default == $total_pages) {echo "disabled";} ?>" href="?page=<?php echo $total_pages; ?>#kokodayo">หน้าสุดท้าย</a>
+         <a class="btn btn-dark <?php if ($page_default == $total_pages) {echo "disabled";}?>" href="?page=<?php echo $total_pages; ?>#kokodayo">หน้าสุดท้าย</a>
     </div>
       </div>
     </div>
@@ -248,12 +247,13 @@ include 'MapController.php'; //SQL arrayToDataTable
       <select name="province" id="province" class="form-control form-select" required="true">
       <option value="" selected>เลือก...</option>
       <?php
-      $sql_allProvince = "SELECT * FROM provinces ORDER BY id ASC";
-      $result_allProvince = mysqli_query($conn, $sql_allProvince);
-      while($rowProvince = mysqli_fetch_array($result_allProvince)) {
-      echo '<option value="'.$rowProvince["name_en"].'">'.$rowProvince["name_th"].'</option>';
-      };
-             ?>
+$sql_allProvince = "SELECT * FROM provinces ORDER BY id ASC";
+$result_allProvince = mysqli_query($conn, $sql_allProvince);
+while ($rowProvince = mysqli_fetch_array($result_allProvince)) {
+    echo '<option value="' . $rowProvince["name_en"] . '">' . $rowProvince["name_th"] . '</option>';
+}
+;
+?>
     </select>
       </div>
       <div class="mb-3">
@@ -316,13 +316,13 @@ include 'MapController.php'; //SQL arrayToDataTable
 <script type="text/javascript">
 
 $(document).ready(function () {
- 
+
 window.setTimeout(function() {
     $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
-        $(this).remove(); 
+        $(this).remove();
     });
 }, 6900);
- 
+
 });
 </script>
     </body>
