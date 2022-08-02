@@ -59,7 +59,7 @@ include 'MapController.php'; //SQL arrayToDataTable
         chart.draw(data, options);
     }
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnUJBvJ7sQ06EYLPr9mcphEBBRznwGwE0&callback=initMap"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=[KEY]&callback=initMap"></script>
 
 
 </head>
