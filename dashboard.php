@@ -11,6 +11,7 @@ include 'MapController.php'; //SQL arrayToDataTable
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="source\css\bootstrap.css">
     <link rel="stylesheet" href="custom\main.css">
+    <link rel="stylesheet" href="source\css\aos.css">
     <meta charset="utf-8">
     <title>True6:GeoDataMap</title>
 
@@ -24,10 +25,7 @@ include 'MapController.php'; //SQL arrayToDataTable
     function drawRegionsMap() {
         var data = google.visualization.arrayToDataTable([
             ['Provinces', 'Status'],
-            <?php echo $data2map;
-//send data to gv.
-
-?>
+            <?php echo $data2map;?>
         ]);
 
         var options = {
@@ -43,8 +41,9 @@ include 'MapController.php'; //SQL arrayToDataTable
             },
             backgroundColor: '#00b3ff',
             datalessRegionColor: '#cfd7ff',
-            keepAspectRatio: true,
+          
             legend: 'none',
+            responsive: true,
             tooltip: {
                 isHtml: true
             }
@@ -54,9 +53,13 @@ include 'MapController.php'; //SQL arrayToDataTable
 
         var chart = new google.visualization.GeoChart(document.getElementById('monitor_div'));
 
+        $(window).resize(function(){
+          chart.draw(data, options);
+        });
         chart.draw(data, options);
     }
     </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnUJBvJ7sQ06EYLPr9mcphEBBRznwGwE0&callback=initMap"></script>
 
 
 </head>
@@ -90,7 +93,7 @@ include 'MapController.php'; //SQL arrayToDataTable
                 <div class="jumbotron mt-3">
                     <h2 class="display-5">True6:GeoDataMap</h2>
                     <hr class="my-1" style="max-width:100%">
-                    <p class="lead">Siwadol's Project INTERN:2</p>
+                    <p class="lead">Siwadol's Project INTERN:2nd</p>
                 </div>
             </div>
 
@@ -103,14 +106,14 @@ if (isset($_GET["result"]) == 1) {
 }
 if ($result == "fail") {
     echo '
-        <div class="alert alert-success alert-dismissible fade show" role="alert" id="success-alert">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <strong>Error!</strong> Somethnig went worng.' . '
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         ';
 } elseif ($result == "done") {
     echo '
-        <div class="alert alert-success alert-dismissible fade show" role="alert" id="success-alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
         <strong>Success!</strong> New Ticket have been created. | ID:' . $_GET["newid"] . '
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
@@ -132,7 +135,8 @@ if ($result == "fail") {
         <div class="row d-grid gap-3">
             <div class="col-lg-12 mb-12">
                 <div class="card shadow-sm w-100">
-                    <div class="card-body monitor_div" id="monitor_div" class="map">
+                    <div class="card-body">
+                      <div class=" monitor_div map" id="monitor_div"></div>
                     </div>
                     <div class="card-footer">Green = Normal | Yellow = NSA | Red = SA</div>
                 </div>
@@ -142,7 +146,7 @@ if ($result == "fail") {
                 <div class="card shadow-sm w-100" id="kokodayo" name="kokodayo">
                     <div class="card-header">All Open Ticket</div>
                     <div class="card-body">
-                        <div class="table-responsive">
+                        <div class="table-responsive" data-aos="fade-up">
                             <table
                                 class="table text-dark table-hover table-striped mx-auto w-100 text-center align-middle">
                                 <tr>
@@ -249,7 +253,7 @@ if ($page_default + 3 <= $total_pages) {
             </div>
 
             <div class="col-lg-12 mb-2">
-                <div class="card shadow-sm w-100">
+                <div class="card shadow-sm w-100" data-aos="fade-right" data-ducal>
                     <div class="card-header">Open New Ticket</div>
                     <div class="card-body">
                         <form class="" id="newwish_form" action="newticket.php" method="post"
@@ -261,8 +265,9 @@ if ($page_default + 3 <= $total_pages) {
                             </div>
                             <div class="mb-3">
                                 <label for="Name" class="form-label">Province<span class="text-danger">*</span></label>
-                                <select name="province" id="province" class="form-control form-select" required="true">
-                                    <option value="" selected>เลือก...</option>
+                                <input name="province" id="province" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="พิมพ์ชื่อจังหวัด" required="true">
+                                <datalist id="datalistOptions">    
+                                <option value="" selected>เลือก...</option>
                                     <?php
 $sql_allProvince = "SELECT * FROM provinces ORDER BY id ASC";
 $result_allProvince = mysqli_query($conn, $sql_allProvince);
@@ -271,7 +276,7 @@ while ($rowProvince = mysqli_fetch_array($result_allProvince)) {
 }
 ;
 ?>
-                                </select>
+                                </datalist>
                             </div>
                             <div class="mb-3">
                                 <label for="tag" class="form-label">Date<span class="text-danger">*</span></label>
@@ -294,7 +299,7 @@ while ($rowProvince = mysqli_fetch_array($result_allProvince)) {
                                         class="text-danger">*</span></label>
                                 <select name="status" id="status" class="form-control form-select" required="true">
                                     <option value="" selected>เลือก...</option>
-                                    <option value="0" disabled>Normal : ปกติ</option>
+                                    <option value="0" disabled>Normal : ปกติ : ปกติก็ไม่ต้องแจ้งสิ?</option>
                                     <option value="1">NSA : ผิดปกติ แต่ไม่ส่งผลกระทบกับ Service</option>
                                     <option value="2">SA : ผิดปกติ และส่งผลกระทบกับ Service</option>
                                 </select>
@@ -319,7 +324,7 @@ while ($rowProvince = mysqli_fetch_array($result_allProvince)) {
                         <a href="https://github.com/armsiwadol69/tureGeoMapData" target="_blank">
                             <h3>Source Code@Github Repository</h3>
                         </a> <br>
-                        <p class="text-danger">Bueng Kan province can't be use with Google charts use "TH-38" instead
+                        <p class="text-danger">Siwadol M.
                         </p>
                     </div>
                 </div>
@@ -328,8 +333,10 @@ while ($rowProvince = mysqli_fetch_array($result_allProvince)) {
 
 
             <script type="text/javascript" src="source\js\bootstrap.js"></script>
+            <script src="source\js\aos.js"></script>
+            <script>AOS.init({delay: 500,duration: 2000});</script>
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-                integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+                integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>    
             <script>
             function checkForm(form) // Submit button clicked
             {

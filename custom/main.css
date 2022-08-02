@@ -40,7 +40,7 @@ body{
   
   }
 .monitor_div{
-	width: 100%; 
+	 /* width: 100%;  */
 }
 
 table {
@@ -54,6 +54,11 @@ table td {
 .fix-textFUll-column {
     white-space: nowrap;
      overflow: hidden;
+}
+
+svg {
+	width:  auto;
+	height: auto;
 }
 
 /* Fix tooltip flickering */

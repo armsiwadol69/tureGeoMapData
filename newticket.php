@@ -51,5 +51,5 @@ if ($query) {
     header('Location:dashboard.php?result=done&newid=' . $Gen_TicketNo);
 } else {
     header('Location:dashboard.php?result=fail');
-}W
+}
 exit(0);
