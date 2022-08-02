@@ -56,10 +56,6 @@ table td {
      overflow: hidden;
 }
 
-svg {
-	width:  auto;
-	height: auto;
-}
 
 /* Fix tooltip flickering */
   svg > g:last-child > g:last-child { pointer-events: none }
